@@ -6,7 +6,7 @@ public class Vertex implements PriorityQueueElement {
 
     private String data;
     private boolean inPQueue;
-    private int pQueueKey;
+    private double pQueueKey;
     private int pQueueIdx;
     private LinkedList<Edge> adjList;
 
@@ -25,12 +25,12 @@ public class Vertex implements PriorityQueueElement {
     }
 
     @Override
-    public int getPQueueKey() {
+    public double getPQueueKey() {
         return pQueueKey;
     }
 
     @Override
-    public void setPQueueKey(int pQueueKey) {
+    public void setPQueueKey(double pQueueKey) {
         this.pQueueKey = pQueueKey;
     }
 
@@ -58,5 +58,32 @@ public class Vertex implements PriorityQueueElement {
     public void addToPQueue() {
         inPQueue = true;
     }
+    
+    public boolean isConnected(Vertex v2)
+    {
+        int i;
+        for(i = 0;i < this.adjList.size();i++)
+        {
+            if(this.adjList.get(i).v == v2) 
+                return true;
+        }
+        return false;
+    }
+    
+    public void displayList()
+    {
+        System.out.println("The neighbours of vertex " + this.data + " is(are): ");
+        int i;
+        for(i = 0;i < this.adjList.size();i++){
+            System.out.println(this.adjList.get(i).v.data + "," + this.adjList.get(i).weight);
+        }
+        if(adjList.size() == 0)
+            System.out.println("No neighbours found.");
+    }
 
+    public void display()
+    {
+        System.out.println(data);
+    }
+    
 }

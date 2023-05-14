@@ -3,9 +3,9 @@ package graphs;
 public class Edge {
 
     public final Vertex v;   
-    public final int weight;
+    public final double weight;
 
-    public Edge(Vertex v, int weight) {
+    public Edge(Vertex v, double weight) {
         this.v = v;
         this.weight = weight;
     }

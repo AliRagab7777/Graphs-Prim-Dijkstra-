@@ -2,9 +2,9 @@ package graphs;
 
 public interface PriorityQueueElement {
 
-    int getPQueueKey();
+    double getPQueueKey();
 
-    void setPQueueKey(int key);
+    void setPQueueKey(double key);
 
     int getPQueueIdx();
 
@@ -16,4 +16,5 @@ public interface PriorityQueueElement {
 
     void addToPQueue();
 
+    void display();
 }
