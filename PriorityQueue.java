@@ -11,56 +11,108 @@ public class PriorityQueue {
         this.arr = new PriorityQueueElement[size];
         this.idx = 0;
     }
-    
-    private void swap(int x,int y)
-    {
-        if(x >= 0 && y >= 0 && x < this.idx && y < this.idx)
-        {
+
+    private boolean validIdx(int i) {
+        return i >= 0 && i < this.idx;
+    }
+
+    private void swap(int x, int y) {
+        if (validIdx(x) && validIdx(y)) {
             PriorityQueueElement temp = this.arr[x];
             this.arr[x] = this.arr[y];
             this.arr[y] = temp;
             this.arr[x].setPQueueIdx(x);
             this.arr[y].setPQueueIdx(y);
-            
+
         }
-            
-    }
-    
-    private void siftUp(int index)
-    {
-        int parentIdx = (index - 1 )/ 2 ;
-        if(parentIdx < 0)
-            return;
-        System.out.println("Parent Index: " + parentIdx);
-        if(arr[parentIdx].getPQueueKey() <= arr[index].getPQueueKey())
-            return;
-        swap(index,parentIdx);
-        siftUp(parentIdx);
-        
-        
+
     }
 
-    public void insert(PriorityQueueElement pqe){
-        if(this.idx >= this.size)
+    private void siftUp(int index) {
+        int parentIdx = (index - 1) / 2;
+        if (!validIdx(parentIdx)) {
             return;
-        
+        }
+        if (arr[parentIdx].getPQueueKey() <= arr[index].getPQueueKey()) {
+            return;
+        }
+        swap(index, parentIdx);
+        siftUp(parentIdx);
+
+    }
+
+    public void insert(PriorityQueueElement pqe) {
+        if (this.idx >= this.size) {
+            return;
+        }
+
         this.arr[this.idx] = pqe;
         pqe.addToPQueue();
         pqe.setPQueueIdx(this.idx);
         this.idx += 1;
         siftUp(this.idx - 1);
         this.display();
-        
+
     }
-    
-    public void display()
-    {
-        int i;
-        for(i = 0; i < this.idx;i++)
-        {
-            arr[i].display();
+
+    private void heapify(int i) {
+        if (!validIdx(i)) {
+            return;
+        }
+
+        int minIdx = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (validIdx(left) && arr[minIdx].getPQueueKey() > arr[left].getPQueueKey()) {
+            minIdx = left;
+        }
+
+        if (validIdx(right) && arr[minIdx].getPQueueKey() > arr[right].getPQueueKey()) {
+            minIdx = right;
+        }
+
+        if (minIdx == i) {
+            return;
+        }
+
+        swap(i, minIdx);
+        heapify(minIdx);
+    }
+
+    public PriorityQueueElement pop() {
+        if (this.idx == 0) {
+            return null;
+        }
+
+        swap(0, this.idx - 1);
+        this.idx--;
+        heapify(0);
+        this.arr[this.idx].removeFromPQueue();
+        return this.arr[this.idx];
+    }
+
+    public void decreaseKey(PriorityQueueElement pqe, int newKey) {
+        if (pqe.isInPQueue() && newKey < pqe.getPQueueKey()) {
+            if (validIdx(pqe.getPQueueIdx())) {
+
+                pqe.setPQueueKey(newKey);
+                siftUp(pqe.getPQueueIdx());
+
+            }
+
         }
     }
-    
+
+    public PriorityQueueElement getMin() {
+        return arr[0];
+    }
+
+    public void display() {
+        int i;
+        for (i = 0; i < this.idx; i++) {
+            System.out.println(arr[i]);
+        }
+    }
 
 }

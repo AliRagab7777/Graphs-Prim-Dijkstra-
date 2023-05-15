@@ -14,7 +14,5 @@ public interface PriorityQueueElement {
 
     void removeFromPQueue();
 
-    void addToPQueue();
-
-    void display();
+    void addToPQueue();    
 }

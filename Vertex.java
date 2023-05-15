@@ -80,10 +80,11 @@ public class Vertex implements PriorityQueueElement {
         if(adjList.size() == 0)
             System.out.println("No neighbours found.");
     }
-
-    public void display()
+    
+    @Override
+    public String toString()
     {
-        System.out.println(data);
+       return data;
     }
     
 }
