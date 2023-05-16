@@ -3,39 +3,56 @@ package graphs;
 public class Graphs {
 
     public static void main(String[] args) {
+
+        Graph graph = new Graph(9, false);
+        Vertex va  = graph.addVertex("a");
+        Vertex vb = graph.addVertex("b");
+        Vertex vc = graph.addVertex("c");
+        Vertex vd = graph.addVertex("d");
+        Vertex ve = graph.addVertex("e");
+        Vertex vf = graph.addVertex("f");
+        Vertex vg = graph.addVertex("g");
+        Vertex vh = graph.addVertex("h");
+        Vertex vi = graph.addVertex("i");
         
         
-//        Graph g = new Graph(5,false);
-//        Vertex v1 = g.addVertex("A");
-//        Vertex v2 = g.addVertex("B");
-//        Vertex v3 = g.addVertex("C");
-//        Vertex v4 = g.addVertex("D");
-//        g.addEdge(v1,v2,10);
-//        g.addEdge(v1, v3, 5);
-////        System.out.println(v1.isConnected(v3));
-////        System.out.println(v3.isConnected(v1));
-////        System.out.println(v3.isConnected(v4));
-//        g.addEdge(v3, v1, 8);
-//        v1.displayList();
-//        v2.displayList();
-//        v3.displayList();
+        graph.addEdge(va, vh, 8);
+        graph.addEdge(va, vb, 4);
         
         
-        Vertex v11 = new Vertex("A");
-        v11.setPQueueKey(10);
-        Vertex v12 = new Vertex("B");
-        v12.setPQueueKey(2);
-        Vertex v13 = new Vertex("C");
-        v13.setPQueueKey(1);
+        graph.addEdge(vb, vh, 11);
+        graph.addEdge(vb, vc, 8);
         
-        PriorityQueue q = new PriorityQueue(5);
-        q.insert(v11);
-        System.out.println("------->");
-        q.insert(v12);
-        System.out.println("------->");
-        q.insert(v13);
-        //q.display();
+        graph.addEdge(vh, vi, 7);
+        graph.addEdge(vh, vg, 1);
+        
+        graph.addEdge(vi, vc, 2);
+        graph.addEdge(vi, vg, 6);
+        
+        
+        graph.addEdge(vc, vd, 7);
+        graph.addEdge(vc, vf, 4);
+        
+        
+        graph.addEdge(vg, vf, 2);
+        
+        graph.addEdge(vd, ve, 9);
+        graph.addEdge(vd, vf, 14);
+        
+        graph.addEdge(ve, vf, 10);
+        
+        
+        int totalCost = graph.mstPrimm(va);
+        
+        
+        for(int i=0; i<graph.getSize(); i++){
+            System.out.println(graph.getVertices()[i] + " ----> (" + graph.getVertices()[i].getPQueueKey() + ") ---->" + graph.getVertices()[i].getMstParent());
+            
+        
+        }
+        
+        System.out.println("Total Cost " + totalCost);
         
     }
-    
+
 }
