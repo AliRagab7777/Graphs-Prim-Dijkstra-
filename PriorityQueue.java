@@ -50,8 +50,7 @@ public class PriorityQueue {
         pqe.addToPQueue();
         pqe.setPQueueIdx(this.idx);
         this.idx += 1;
-        siftUp(this.idx - 1);
-        this.display();
+        siftUp(this.idx - 1);       
 
     }
 
@@ -92,7 +91,7 @@ public class PriorityQueue {
         return this.arr[this.idx];
     }
 
-    public void decreaseKey(PriorityQueueElement pqe, int newKey) {
+    public void decreaseKey(PriorityQueueElement pqe, Double newKey) {
         if (pqe.isInPQueue() && newKey < pqe.getPQueueKey()) {
             if (validIdx(pqe.getPQueueIdx())) {
 
@@ -113,6 +112,10 @@ public class PriorityQueue {
         for (i = 0; i < this.idx; i++) {
             System.out.println(arr[i]);
         }
+    }
+    
+    public boolean isEmpty(){
+        return this.idx == 0;                 
     }
 
 }
