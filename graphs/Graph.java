@@ -40,6 +40,7 @@ public class Graph {
             v1.addEdge(v2, weight);
         }
 
+
     }
 
     public Vertex[] getVertices() {
@@ -126,15 +127,23 @@ public class Graph {
             }
 
             Vertex [] result = new Vertex[this.idx];
+            int popElements = 0;
 
             while (!pqueue.isEmpty())
             {
                 Vertex v = (Vertex) pqueue.pop();
+                result[popElements] = v;
+                popElements += 1;
                 for(Edge e : v.getAdjList())
                 {
                     if (e.v.isInPQueue())
                     {
-                        relax(v,e.v,e.weight,pqueue);
+                        if(e.weight < 0){
+                            System.out.println("Negative Weightes are not allowed in Dijkstra");
+                            return null;
+                        }
+                            else
+                                relax(v, e.v, e.weight, pqueue);
                     }
                 }
 
