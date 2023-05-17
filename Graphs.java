@@ -19,22 +19,45 @@ public class Graphs {
 //        v1.displayList();
 //        v2.displayList();
 //        v3.displayList();
+     
+
+        String v[] = {"A","B","C","D","E","F","G","H","I","J"};
+        double weight[] = {10,5,2,3,4,-2,0,7,2.5,-1.25};
+        //double weight[] = {Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,0,0,0,0,0};
+        //double weight[] = {100,50,45.5,45.49,45.489,0,-0.01,-2,-9,-9.000001};
+        Vertex vertices[] = new Vertex[10]; 
+        int i;
+        for(i = 0;i < v.length;i++)
+        {
+            vertices[i] = new Vertex(v[i]);
+            vertices[i].setPQueueKey(weight[i]);
+        }
+        
+
+        PriorityQueue q = new PriorityQueue(10);
+        for(i = 0;i < v.length;i++)
+        {
+            q.insert(vertices[i]);
+            System.out.println("-------------->");
+            
+        }
+        PriorityQueueElement pqe =  q.pop();
+        System.out.println(pqe.getPQueueKey());
+        q.display();
+        pqe = q.getMin();
+        System.out.println(pqe.getPQueueKey());
+        q.display();
+        q.pop();
+        System.out.println("----------------->");
+        q.display();
+        q.pop();
+        System.out.println("----------------->");
+        q.display();
+        q.pop();
+        System.out.println("----------------->");
+        q.display();
         
         
-        Vertex v11 = new Vertex("A");
-        v11.setPQueueKey(10);
-        Vertex v12 = new Vertex("B");
-        v12.setPQueueKey(2);
-        Vertex v13 = new Vertex("C");
-        v13.setPQueueKey(1);
-        
-        PriorityQueue q = new PriorityQueue(5);
-        q.insert(v11);
-        System.out.println("------->");
-        q.insert(v12);
-        System.out.println("------->");
-        q.insert(v13);
-        //q.display();
         
     }
     
