@@ -9,6 +9,9 @@ public class Vertex implements PriorityQueueElement {
     private double pQueueKey;
     private int pQueueIdx;
     private LinkedList<Edge> adjList;
+    private Vertex mstParent;
+
+    private Vertex dijkParent;
 
     public Vertex(String data) {
         this.data = data;        
@@ -19,6 +22,8 @@ public class Vertex implements PriorityQueueElement {
     public void addEdge(Edge e) {
         this.adjList.add(e);
     }
+
+
 
     public void addEdge(Vertex v, int weight) {
         this.adjList.add(new Edge(v, weight));
@@ -86,5 +91,23 @@ public class Vertex implements PriorityQueueElement {
     {
        return data;
     }
+
+    public Vertex getMstParent() {
+        return mstParent;
+    }
+
+    public void setMstParent(Vertex mstParent) {
+        this.mstParent = mstParent;
+    }
+
+
+    public void setDijkstraParent(Vertex dijkPartent){this.dijkParent = dijkPartent;}
+
+    public LinkedList<Edge> getAdjList() {
+        return adjList;
+    }
+    
+    
+    
     
 }

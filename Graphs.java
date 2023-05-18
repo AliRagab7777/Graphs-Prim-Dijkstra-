@@ -3,62 +3,56 @@ package graphs;
 public class Graphs {
 
     public static void main(String[] args) {
-        
-        
-//        Graph g = new Graph(5,false);
-//        Vertex v1 = g.addVertex("A");
-//        Vertex v2 = g.addVertex("B");
-//        Vertex v3 = g.addVertex("C");
-//        Vertex v4 = g.addVertex("D");
-//        g.addEdge(v1,v2,10);
-//        g.addEdge(v1, v3, 5);
-////        System.out.println(v1.isConnected(v3));
-////        System.out.println(v3.isConnected(v1));
-////        System.out.println(v3.isConnected(v4));
-//        g.addEdge(v3, v1, 8);
-//        v1.displayList();
-//        v2.displayList();
-//        v3.displayList();
-     
 
-        String v[] = {"A","B","C","D","E","F","G","H","I","J"};
-        double weight[] = {10,5,2,3,4,-2,0,7,2.5,-1.25};
-        //double weight[] = {Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,0,0,0,0,0};
-        //double weight[] = {100,50,45.5,45.49,45.489,0,-0.01,-2,-9,-9.000001};
-        Vertex vertices[] = new Vertex[10]; 
-        int i;
-        for(i = 0;i < v.length;i++)
-        {
-            vertices[i] = new Vertex(v[i]);
-            vertices[i].setPQueueKey(weight[i]);
-        }
-        
+        Graph graph = new Graph(9, false);
+        Vertex va  = graph.addVertex("a");
+        Vertex vb = graph.addVertex("b");
+        Vertex vc = graph.addVertex("c");
+        Vertex vd = graph.addVertex("d");
+        Vertex ve = graph.addVertex("e");
+        Vertex vf = graph.addVertex("f");
+        Vertex vg = graph.addVertex("g");
+        Vertex vh = graph.addVertex("h");
+        Vertex vi = graph.addVertex("i");
 
-        PriorityQueue q = new PriorityQueue(10);
-        for(i = 0;i < v.length;i++)
-        {
-            q.insert(vertices[i]);
-            System.out.println("-------------->");
-            
+
+        graph.addEdge(va, vh, 8);
+        graph.addEdge(va, vb, 4);
+
+
+        graph.addEdge(vb, vh, 11);
+        graph.addEdge(vb, vc, 8);
+
+        graph.addEdge(vh, vi, 7);
+        graph.addEdge(vh, vg, 1);
+
+        graph.addEdge(vi, vc, 2);
+        graph.addEdge(vi, vg, 6);
+
+
+        graph.addEdge(vc, vd, 7);
+        graph.addEdge(vc, vf, 4);
+
+
+        graph.addEdge(vg, vf, 2);
+
+        graph.addEdge(vd, ve, 9);
+        graph.addEdge(vd, vf, 14);
+
+        graph.addEdge(ve, vf, 10);
+
+
+        int totalCost = graph.mstPrimm(va);
+
+
+        for(int i=0; i<graph.getSize(); i++){
+            System.out.println(graph.getVertices()[i] + " ----> (" + graph.getVertices()[i].getPQueueKey() + ") ---->" + graph.getVertices()[i].getMstParent());
+
+
         }
-        PriorityQueueElement pqe =  q.pop();
-        System.out.println(pqe.getPQueueKey());
-        q.display();
-        pqe = q.getMin();
-        System.out.println(pqe.getPQueueKey());
-        q.display();
-        q.pop();
-        System.out.println("----------------->");
-        q.display();
-        q.pop();
-        System.out.println("----------------->");
-        q.display();
-        q.pop();
-        System.out.println("----------------->");
-        q.display();
-        
-        
-        
+
+        System.out.println("Total Cost " + totalCost);
+
     }
-    
+
 }
