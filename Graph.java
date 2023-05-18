@@ -8,6 +8,7 @@ public class Graph {
     private int n;
     private int idx;
     private boolean directed;
+    private boolean negativeWeight;
 
     public Graph(int n, boolean directed) {
         this.vertices = new Vertex[n];
@@ -32,6 +33,9 @@ public class Graph {
         if (v1.isConnected(v2)) {
             return;
         }
+        
+        if(weight < 0)
+            this.negativeWeight = true;
 
         if (directed == false) {
             v1.addEdge(v2, weight);
@@ -39,6 +43,7 @@ public class Graph {
         } else {
             v1.addEdge(v2, weight);
         }
+
 
     }
 
@@ -53,9 +58,15 @@ public class Graph {
     
     
 
-    public int mstPrimm(Vertex v) {
+    public double mstPrimm(Vertex v) {
         
-        int totalCost = 0;
+        
+        if(this.directed)
+        {
+            System.out.println("Prim Algorithm doesnot work with directed graphs.");
+            return 0;
+        }
+        double totalCost = 0;
         
         for (int i = 0; i < this.idx; i++) {
             this.vertices[i].setPQueueKey(Double.POSITIVE_INFINITY);
@@ -74,6 +85,12 @@ public class Graph {
         
         while(!pqueue.isEmpty()){
             v = (Vertex) pqueue.pop();
+            if(v.getPQueueKey() == Double.POSITIVE_INFINITY)
+                {
+                    System.out.println("Graph is disconnected.");
+                    System.out.println("The total cost of the connected subgraph is returned.");
+                    return totalCost;
+                }
             totalCost += v.getPQueueKey();
             
             for(Edge e : v.getAdjList()){
@@ -104,11 +121,12 @@ public class Graph {
 
     public void relax (Vertex v1, Vertex v2, Double weight, PriorityQueue pq)
     {
+        
+        
         if (v2.getPQueueKey() > v1.getPQueueKey() + weight)
         {
-            v2.setPQueueKey(v1.getPQueueKey() + weight);
+            pq.decreaseKey(v2, v1.getPQueueKey() + weight );
             v2.setDijkstraParent(v1);
-            pq.siftUp(v2.getPQueueIdx());
         }
     }
 
@@ -116,6 +134,10 @@ public class Graph {
 
     public Vertex[] dijkstra (Vertex s)
     {
+        if(this.negativeWeight){
+            System.out.println("Dijkstra Algorithm doesnot allow negative weights.");
+            return null;
+        }
             initialization(s);
             s.setDijkstraParent(null);
             PriorityQueue pqueue = new PriorityQueue(this.idx);
@@ -126,15 +148,29 @@ public class Graph {
             }
 
             Vertex [] result = new Vertex[this.idx];
+            int popElements = 0;
 
             while (!pqueue.isEmpty())
             {
                 Vertex v = (Vertex) pqueue.pop();
+                if(v.getPQueueKey() == Double.POSITIVE_INFINITY)
+                {
+                    if(this.directed == false){
+                        System.out.println("Graph is disconnected.");
+                    }
+                    else
+                    {
+                        System.out.println("Some Nodes are unreachable.");
+                    }
+                    return null;
+                }
+                result[popElements] = v;
+                popElements += 1;
                 for(Edge e : v.getAdjList())
                 {
                     if (e.v.isInPQueue())
                     {
-                        relax(v,e.v,e.weight,pqueue);
+                        relax(v, e.v, e.weight, pqueue);
                     }
                 }
 

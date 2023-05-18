@@ -103,6 +103,8 @@ public class Vertex implements PriorityQueueElement {
 
     public void setDijkstraParent(Vertex dijkPartent){this.dijkParent = dijkPartent;}
 
+    public Vertex getDijkParent(){return this.dijkParent;}
+
     public LinkedList<Edge> getAdjList() {
         return adjList;
     }

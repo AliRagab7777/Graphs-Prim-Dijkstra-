@@ -28,7 +28,7 @@ public class PriorityQueue {
 
     }
 
-    public void siftUp(int index) {
+    private void siftUp(int index) {
         int parentIdx = (index - 1) / 2;
         if (!validIdx(parentIdx)) {
             return;
